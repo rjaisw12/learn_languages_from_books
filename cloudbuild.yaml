@@ -4,24 +4,19 @@ steps:
     args:
       - "-c"
       - |
-        echo "$$GOOGLE_APPLICATION_CREDENTIALS_CONTENT" > /tmp/service-account-key.json
-        export GOOGLE_APPLICATION_CREDENTIALS="/tmp/service-account-key.json"
+        echo "$$GOOGLE_APPLICATION_CREDENTIALS_CONTENT" > /workspace/service-account-key.json
+        export GOOGLE_APPLICATION_CREDENTIALS="/workspace/service-account-key.json"
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/$PROJECT_ID/learn-language-flask-app", "."]
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/learn-language-flask-app"]
   - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: "bash"
     args:
-      - "beta"
-      - "run"
-      - "deploy"
-      - "learn-language-flask-app"
-      - "--image"
-      - "gcr.io/$PROJECT_ID/learn-language-flask-app"
-      - "--region"
-      - "us-central1"
-      - "--platform"
-      - "managed"
+      - "-c"
+      - |
+        export GOOGLE_APPLICATION_CREDENTIALS="/workspace/service-account-key.json"
+        gcloud beta run deploy learn-language-flask-app --image gcr.io/$PROJECT_ID/learn-language-flask-app --region us-central1 --platform managed
 
 secrets:
   - secretEnv: ["GOOGLE_APPLICATION_CREDENTIALS_CONTENT"]
