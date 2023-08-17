@@ -1,17 +1,15 @@
 import fitz  # PyMuPDF
 import re
 import random
-from transformers import MarianMTModel, MarianTokenizer
+import os
+from google.cloud import translate_v2 as translate
 
-# Initialiser le tokenizer et le modèle de traduction
-tokenizer = MarianTokenizer.from_pretrained('Helsinki-NLP/opus-mt-zh-en')
-model = MarianMTModel.from_pretrained('Helsinki-NLP/opus-mt-zh-en')
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "service_account_file.json"
 
 def translate_sentence(sentence):
-    inputs = tokenizer(sentence, truncation=True, padding=True, return_tensors="pt")
-    translated = model.generate(**inputs, max_new_tokens=50)
-    translated_sentence = tokenizer.batch_decode(translated, skip_special_tokens=True)
-    return translated_sentence[0]
+    translate_client = translate.Client()
+    result = translate_client.translate(sentence, source_language="zh-CN", target_language="fr")
+    return result['translatedText']
 
 
 def extract_text_from_pdf(pdf_path, start_page=0, end_page=None):

@@ -1,5 +1,12 @@
 steps:
   - name: "gcr.io/cloud-builders/docker"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "$$GOOGLE_APPLICATION_CREDENTIALS_CONTENT" > /tmp/service-account-key.json
+        export GOOGLE_APPLICATION_CREDENTIALS="/tmp/service-account-key.json"
+  - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/$PROJECT_ID/learn-language-flask-app", "."]
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/learn-language-flask-app"]
@@ -17,3 +24,11 @@ steps:
         "--platform",
         "managed",
       ]
+
+secrets:
+  - secretEnv: ["GOOGLE_APPLICATION_CREDENTIALS_CONTENT"]
+
+availableSecrets:
+  secretManager:
+    - versionName: "projects/776682186119/secrets/service-account-key/versions/latest"
+      env: "GOOGLE_APPLICATION_CREDENTIALS_CONTENT"

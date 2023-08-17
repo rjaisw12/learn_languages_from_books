@@ -11,12 +11,6 @@ COPY requirements.txt ./
 # Installez les dépendances
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier le script de préchargement
-COPY preload_models.py ./
-
-# Exécutez le script pour télécharger les modèles
-RUN python preload_models.py
-
 # Copiez le reste de votre application
 COPY . .
 
