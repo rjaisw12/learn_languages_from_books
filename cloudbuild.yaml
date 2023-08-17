@@ -12,18 +12,16 @@ steps:
     args: ["push", "gcr.io/$PROJECT_ID/learn-language-flask-app"]
   - name: "gcr.io/cloud-builders/gcloud"
     args:
-      [
-        "beta",
-        "run",
-        "deploy",
-        "learn-language-flask-app",
-        "--image",
-        "gcr.io/$PROJECT_ID/learn-language-flask-app",
-        "--region",
-        "us-central1",
-        "--platform",
-        "managed",
-      ]
+      - "beta"
+      - "run"
+      - "deploy"
+      - "learn-language-flask-app"
+      - "--image"
+      - "gcr.io/$PROJECT_ID/learn-language-flask-app"
+      - "--region"
+      - "us-central1"
+      - "--platform"
+      - "managed"
 
 secrets:
   - secretEnv: ["GOOGLE_APPLICATION_CREDENTIALS_CONTENT"]
