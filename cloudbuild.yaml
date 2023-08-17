@@ -17,11 +17,3 @@ steps:
       - |
         export GOOGLE_APPLICATION_CREDENTIALS="/workspace/service-account-key.json"
         gcloud beta run deploy learn-language-flask-app --image gcr.io/$PROJECT_ID/learn-language-flask-app --region us-central1 --platform managed
-
-secrets:
-  - secretEnv: ["GOOGLE_APPLICATION_CREDENTIALS_CONTENT"]
-
-availableSecrets:
-  secretManager:
-    - versionName: "projects/776682186119/secrets/service-account-key/versions/latest"
-      env: "GOOGLE_APPLICATION_CREDENTIALS_CONTENT"
