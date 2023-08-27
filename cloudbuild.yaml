@@ -1,12 +1,4 @@
 steps:
-  - name: "gcr.io/cloud-builders/git"
-    entrypoint: "bash"
-    args:
-      - "-c"
-      - |
-        git init
-        git remote add origin https://github.com/rjaisw12/learn_languages_from_books.git
-
   - name: "gcr.io/cloud-builders/wget"
     args:
       [
