@@ -1,18 +1,4 @@
 steps:
-  - name: "gcr.io/cloud-builders/wget"
-    args:
-      [
-        "-O",
-        "/tmp/git-lfs.tar.gz",
-        "https://github.com/git-lfs/git-lfs/releases/download/v2.13.3/git-lfs-linux-amd64-v2.13.3.tar.gz",
-      ]
-
-  - name: "gcr.io/cloud-builders/tar"
-    args: ["-xvzf", "/tmp/git-lfs.tar.gz", "-C", "/tmp"]
-
-  - name: "gcr.io/cloud-builders/git"
-    args: ["/tmp/git-lfs-2.13.3/git-lfs", "install"]
-
   - name: "gcr.io/cloud-builders/git"
     args: ["lfs", "pull"]
 
