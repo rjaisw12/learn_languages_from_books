@@ -1,3 +1,4 @@
+import os
 from utils import (extract_text_from_pdf,
                    split_text_into_sentences,
                    choose_random_sentence,
@@ -6,8 +7,14 @@ from utils import (extract_text_from_pdf,
                    get_character_options
 )
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+ALLOWED_ORIGINS = ["https://www.raphaeljaiswal.com", "http://localhost:3000"]
+
+
+CORS(app, origins=ALLOWED_ORIGINS)
 
 @app.route('/get-chinese-quiz', methods=['GET'])
 def get_chinese_quiz():
