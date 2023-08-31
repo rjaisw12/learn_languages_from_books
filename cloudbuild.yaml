@@ -1,9 +1,9 @@
 steps:
   - name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - 'apt-get update && apt-get install -y git-lfs'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'apt-get update && apt-get install -y git-lfs'
 
   - name: "gcr.io/cloud-builders/docker"
     entrypoint: "bash"
