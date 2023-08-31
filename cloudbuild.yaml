@@ -5,11 +5,8 @@ steps:
       - '-c'
       - 'apt-get update && apt-get install -y git-lfs'
 
-  - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - 'git lfs pull'
+  - name: 'gcr.io/alien-scope-330815/git-lfs-image'
+    args: ['git', 'lfs', 'pull']
 
   - name: "gcr.io/cloud-builders/docker"
     entrypoint: "bash"
