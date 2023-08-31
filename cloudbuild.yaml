@@ -5,6 +5,13 @@ steps:
       - '-c'
       - 'apt-get update && apt-get install -y git-lfs'
 
+  # Etape pour effectuer git lfs pull
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'cd repo && git lfs pull'
+
   - name: "gcr.io/cloud-builders/docker"
     entrypoint: "bash"
     args:
